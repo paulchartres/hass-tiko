@@ -1,0 +1,29 @@
+{
+  "name": "hass-tiko",
+  "version": "1.0.0",
+  "description": "A NodeJS REST API to access Tiko smart heating data. Used with custom sensors in Home Assistant.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc --project tsconfig.json"
+  },
+  "author": "CykaDev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
+    "request": "^2.88.2",
+    "winston": "^3.8.2",
+    "yaml": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.14.1",
+    "express-swagger-generator": "^1.1.17",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
