@@ -2,7 +2,6 @@
 const YAML = require('yaml');
 
 module.exports = function(data: any): string {
-    console.log('Creating YAML');
     const tikoConfig: any = {
         tiko: {
             sensor: [],
@@ -303,6 +302,5 @@ module.exports = function(data: any): string {
     );
     const doc = new YAML.Document();
     doc.contents = tikoConfig;
-    console.log(doc.toString());
     return doc.toString().replace(/"{{OFF}}"/g, "'off'").replace(/"{{ON}}"/g, "'on'");
 };
