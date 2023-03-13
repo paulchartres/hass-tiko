@@ -72,7 +72,7 @@ There are many, many ways you can use all the new data generated in the YAML con
 ## Future improvements
 There's quite a lot I want to change within this project. It was made over a few hours of free time and is quite frankly not satisfactory in its current state. Things to do:  
 - [ ] Improve the setup documentation
-- [ ] Move the YAML generation code to a dedicated service
+- [X] Move the YAML generation code to a dedicated service
 - [ ] Strongly type everything
 - [ ] Properly deal with errors (return error messages, etc)
 - [ ] Properly log with Winston
