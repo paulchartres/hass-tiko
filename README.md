@@ -79,3 +79,4 @@ There's quite a lot I want to change within this project. It was made over a few
 - [ ] Add a setup UI to guide through Home Assistant setup
 - [ ] Add a dashboard to easily access YAML configuration and generate dashboard cards
 - [ ] Add a dashboard to see Tiko data on the fly
+- [ ] Make a public Docker image on Docker Hub
