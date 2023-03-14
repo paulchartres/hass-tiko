@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hass-Tiko Configuration</title>
+        <link rel="stylesheet" href="config/config.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    </head>
+    <body>
+        <div class="config-container">
+            <div class="config-column">
+                <span class="config-title">Welcome to Hass-Tiko!</span>
+                <span class="config-subtitle">Let's get started.</span>
+                <!-- Email -->
+                <div class="config-form-field">
+                    <span class="config-form-field-label">Tiko account email</span>
+                    <input class="config-form-field-input" id="email">
+                </div>
+                <!-- Password -->
+                <div class="config-form-field">
+                    <span class="config-form-field-label">Tiko account password</span>
+                    <input type="password" class="config-form-field-input" id="password">
+                </div>
+                <!-- Server endpoint -->
+                <div class="config-form-field">
+                    <span class="config-form-field-label">Tiko server endpoint</span>
+                    <input class="config-form-field-input" value="https://portal-engie.tiko.ch" id="endpoint">
+                </div>
+                <!-- Actions -->
+                <div class="config-actions">
+                    <button class="config-button save-connection" id="save-connection" disabled onclick="onSaveConnection()">
+                        <i class="fa fa-circle-o-notch fa-spin hidden" id="save-connection-spinner"></i> Save connection
+                    </button>
+                    <button class="config-button test-connection" id="test-connection" onclick="onTestConnection()">
+                        <i class="fa fa-circle-o-notch fa-spin hidden" id="test-connection-spinner"></i> Test connection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="config/config.js"></script>
+
+</html>

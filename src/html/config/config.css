@@ -1,0 +1,140 @@
+:root {
+    --nord0: #2E3440;
+    --nord1: #3B4252;
+    --nord2: #434C5E;
+    --nord3: #4C566A;
+
+    --nord4: #D8DEE9;
+    --nord5: #E5E9F0;
+    --nord6: #ECEFF4;
+
+    --nord7: #8FBCBB;
+    --nord8: #88C0D0;
+    --nord9: #81A1C1;
+    --nord10: #5E81AC;
+
+    --nord11: #BF616A;
+    --nord12: #D08770;
+    --nord13: #EBCB8B;
+    --nord14: #A3BE8C;
+    --nord15: #B48EAD;
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--nord0);
+    overflow: hidden;
+    color: var(--nord6)
+}
+
+.config-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.config-column {
+    padding: 1.25rem;
+    border-radius: 0.25rem;
+    background-color: var(--nord1);
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+    align-items: center;
+}
+
+.config-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.config-subtitle {
+    margin-top: 0.25rem;
+    color: var(--nord4);
+    font-size: 0.8rem;
+}
+
+.config-form-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.config-form-field-label {
+    color: var(--nord5);
+    font-size: 0.9rem;
+}
+
+.config-form-field-input {
+    all: unset;
+    border: 1px solid var(--nord4);
+    border-radius: 0.25rem;
+    height: 30px;
+    font-weight: 200;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    transition: 0.2s;
+}
+
+.config-form-field-input:focus,
+.config-form-field-input:hover {
+    background-color: var(--nord2);
+}
+
+.config-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.config-button {
+    all: unset;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    border-radius: 0.25rem;
+    transition: 0.2s;
+    user-select: none;
+}
+
+.config-button:disabled {
+    filter: saturate(0%);
+    cursor: not-allowed;
+}
+
+.config-button:disabled:hover {
+    filter: saturate(0%) !important;
+}
+
+.config-button:hover {
+    filter: brightness(87%);
+}
+
+.save-connection {
+    background-color: var(--nord10);
+    margin-left: 0.5rem;
+}
+
+.test-connection {
+    background-color: var(--nord12);
+}
+
+.loading {
+    filter: saturate(30%);
+    cursor: not-allowed;
+}
+
+.loading:hover {
+    filter: saturate(30%) !important;
+}
+
+.hidden {
+    display: none !important;
+}

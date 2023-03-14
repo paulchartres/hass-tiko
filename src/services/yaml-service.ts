@@ -21,7 +21,7 @@ module.exports = function(data: any): string {
             'absence',
             'disableHeating'
         ],
-        command: `curl -s ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+        command: `curl -s ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
         scan_interval: 60,
         value_template: 1
     };
@@ -206,7 +206,7 @@ module.exports = function(data: any): string {
                 mode: 'single'
             }
         );
-        tikoConfig.tiko.shell_command[roomName + '_set_temp'] = `/usr/bin/curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/${room.id}/temperature?temp={{ state_attr("climate.${roomName}", "temperature") }}`
+        tikoConfig.tiko.shell_command[roomName + '_set_temp'] = `/usr/bin/curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/${room.id}/temperature?temp={{ state_attr("climate.${roomName}", "temperature") }}`
         tikoConfig.tiko.climate.push(
             {
                 platform: 'generic_thermostat',
@@ -227,7 +227,7 @@ module.exports = function(data: any): string {
             'this_month_total_wh',
             'last_month_total_same_day_wh'
         ],
-        command: `curl -s ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/consumption`,
+        command: `curl -s ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/consumption`,
         unit_of_measurement: 'W',
         scan_interval: 3600,
         value_template: 1
@@ -239,9 +239,9 @@ module.exports = function(data: any): string {
             switches: {
                 heaters_on_off: {
                     friendly_name: 'Heaters on/off',
-                    command_on: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
-                    command_off: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/disableHeating`,
-                    command_state: `curl -X GET ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+                    command_on: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
+                    command_off: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/disableHeating`,
+                    command_state: `curl -X GET ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
                     value_template: '{{value_json["disableHeating"]}}',
                     icon_template: '{% if (value_json.disableHeating) %} mdi:radiator-off {% else %} mdi:radiator-off {% endif %}'
                 }
@@ -252,9 +252,9 @@ module.exports = function(data: any): string {
             switches: {
                 heaters_off: {
                     friendly_name: 'Heaters off',
-                    command_on: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/disableHeating`,
-                    command_off: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
-                    command_state: `curl -X GET ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+                    command_on: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/disableHeating`,
+                    command_off: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
+                    command_state: `curl -X GET ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
                     value_template: '{{value_json["disableHeating"]}}',
                     icon_template: '{% if (value_json.disableHeating) %} mdi:radiator-off {% else %} mdi:radiator-off {% endif %}'
                 }
@@ -265,9 +265,9 @@ module.exports = function(data: any): string {
             switches: {
                 heaters_boost: {
                     friendly_name: 'Heaters boost',
-                    command_on: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/boost`,
-                    command_off: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
-                    command_state: `curl -X GET ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+                    command_on: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/boost`,
+                    command_off: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
+                    command_state: `curl -X GET ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
                     value_template: '{{value_json["boost"]}}',
                     icon_template: '{% if (value_json.boost) %} mdi:sun-thermometer {% else %} mdi:lightning-bolt-outline {% endif %}'
                 }
@@ -278,9 +278,9 @@ module.exports = function(data: any): string {
             switches: {
                 heaters_absence: {
                     friendly_name: 'Heaters absence',
-                    command_on: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/absence`,
-                    command_off: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
-                    command_state: `curl -X GET ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+                    command_on: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/absence`,
+                    command_off: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
+                    command_state: `curl -X GET ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
                     value_template: '{{value_json["absence"]}}',
                     icon_template: '{% if (value_json.absence) %} mdi:door-closed-lock {% else %} mdi:door {% endif %}'
                 }
@@ -291,9 +291,9 @@ module.exports = function(data: any): string {
             switches: {
                 heaters_frost: {
                     friendly_name: 'Heaters frost',
-                    command_on: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/frost`,
-                    command_off: `curl -X PUT ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
-                    command_state: `curl -X GET ${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
+                    command_on: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/frost`,
+                    command_off: `curl -X PUT ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/mode/false`,
+                    command_state: `curl -X GET ${process.env.SERVICE_PROTOCOL}://${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}/api/v1/summary`,
                     value_template: '{{value_json["frost"]}}',
                     icon_template: '{% if (value_json.frost) %} mdi:snowflake-thermometer {% else %} mdi:snowflake-thermometer {% endif %}'
                 }

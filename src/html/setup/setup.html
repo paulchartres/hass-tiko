@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hass-Tiko Setup</title>
+    <link rel="stylesheet" href="setup.css">
+    <link rel="stylesheet" href="lib/prism-nord.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+<div class="config-container">
+    <div class="config-column">
+        <span class="config-title">Welcome to Hass-Tiko!</span>
+        <span class="config-subtitle">Let's configure your Home Assistant instance.</span>
+        <div id="step-one" class="step-container">
+            <span class="step-title">Step one - Enabling custom packages</span> <!-- What are you doing, step-title? -->
+            <span class="step-content">If it isn't there already, add the following line to your <code class="language-bash">/config/configuration.yaml</code> file:</span>
+            <pre><code class="language-yaml">packages: !include_dir_merge_named packages/</code></pre>
+        </div>
+        <div id="step-two" class="step-container">
+            <span class="step-title">Step two - Creating the custom package</span>
+            <span class="step-content">Create a <code class="language-bash">/config/packages</code> folder, and create a <code class="language-bash">tiko.yaml</code> file inside it.</span>
+        </div>
+        <div id="step-three" class="step-container">
+            <span class="step-title">Step three - Importing the YAML configuration</span>
+            <span class="step-content">Copy the following auto-generated YAML configuration into the newly created <code class="language-bash">/config/packages/tiko.yaml</code> file:</span>
+            <div class="code-container">
+                <div class="actions">
+                    <button class="dl-btn" onclick="onDownload()">
+                        <i class="fa fa-download"></i>
+                    </button>
+                    <button class="copy-btn" onclick="onCopy()">
+                        <i class="fa fa-copy"></i>
+                    </button>
+                </div>
+                <pre class="auto-yaml"><code class="language-yaml" id="auto-yaml"></code></pre>
+            </div>
+        </div>
+        <div id="step-four" class="step-container">
+            <span class="step-title">Step four - Restarting your Home Assistant instance</span>
+            <span class="step-content">It is now time to restart and to see your new devices in action. Press the button below to access your Home Assistant Server Controls page:</span>
+            <a href="https://my.home-assistant.io/redirect/server_controls/" target="_blank" class="ha-btn">
+                <img src="https://my.home-assistant.io/badges/server_controls.svg" alt="Open your Home Assistant instance and show your server controls." />
+            </a>
+            <span class="step-content">You can then press the <code class="language-bash">restart</code> button on the right of the top card.</span>
+        </div>
+        <div id="step-five" class="step-container">
+            <span class="step-title">Step five - Add cards to control your heating</span>
+            <span class="step-content">There will be a dashboard card generator right here in the future. In the meantime, you should be able to setup Thermostat cards linked to the Climate entities that were generated in the YAML above.</span>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="lib/prism.js"></script>
+<script src="setup.js"></script>
+
+</html>

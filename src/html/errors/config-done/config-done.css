@@ -1,0 +1,72 @@
+:root {
+    --nord0: #2E3440;
+    --nord1: #3B4252;
+    --nord2: #434C5E;
+    --nord3: #4C566A;
+
+    --nord4: #D8DEE9;
+    --nord5: #E5E9F0;
+    --nord6: #ECEFF4;
+
+    --nord7: #8FBCBB;
+    --nord8: #88C0D0;
+    --nord9: #81A1C1;
+    --nord10: #5E81AC;
+
+    --nord11: #BF616A;
+    --nord12: #D08770;
+    --nord13: #EBCB8B;
+    --nord14: #A3BE8C;
+    --nord15: #B48EAD;
+}
+
+a {
+    color: var(--nord7);
+}
+
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--nord0);
+    overflow: hidden;
+    color: var(--nord6)
+}
+
+.config-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.config-column {
+    padding: 1.25rem;
+    border-radius: 0.25rem;
+    background-color: var(--nord1);
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+    align-items: center;
+}
+
+.config-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.error-box {
+    border: 1px dashed var(--nord11);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+}

@@ -1,5 +1,14 @@
 import express, {Application, Request, Response} from 'express';
 import winston from "winston";
+import path from "path";
+require('dotenv').config(
+    {
+        path: path.join( __dirname, 'config', '.env' )
+    }
+);
+
+// Default environment configuration if not defined
+process.env.SERVICE_PORT ? process.env.SERVICE_PORT = process.env.SERVICE_PORT : process.env.SERVICE_PORT = '3001';
 
 // Custom services
 const roomService = require('./services/room-service');
@@ -7,19 +16,23 @@ const authService = require('./services/authentication-service');
 const tempService = require('./services/temperature-service');
 const modeService = require('./services/mode-service');
 const yamlService = require('./services/yaml-service');
-
-// Extra fluff
-const YAML = require('yaml');
+const envService = require('./services/env-service');
 
 // Server-related
 const _request = require('request');
 const app: Application = express();
 const expressSwagger = require('express-swagger-generator')(app);
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(express.static( __dirname + '/html' ));
 
 // Global variables
 let token: string; // Token that will be populated on init
 let userId: number; // User ID that will be populated on init
-let serverUrl: string = process.env.SERVER ? process.env.SERVER : 'https://portal-engie.tiko.ch'; // Server URL the queries will be sent to
+let serverUrl: string;
 
 // Logging
 const logger = winston.createLogger({
@@ -41,7 +54,7 @@ const options = {
             title: 'Swagger',
             version: '1.0.0',
         },
-        host: `${process.env.SERVICE_URL?.split('://').splice(1).join('')}:${process.env.SERVICE_PORT}`,
+        host: `${process.env.SERVICE_URL}:${process.env.SERVICE_PORT}`,
         basePath: '/api/v1',
         produces: [
             "application/json"
@@ -66,7 +79,12 @@ expressSwagger(options);
  * Initialization function that stores the Tiko token in the global-scope variable 'token'
  */
 function authenticate(): void {
-    authService(serverUrl).then((data: any) => {
+    if (!process.env.EMAIL || !process.env.PASSWORD || !process.env.ENDPOINT) {
+        logger.info('Configuration not found. Please head to the /configuration endpoint to set everything up!');
+        return;
+    }
+    serverUrl = process.env.ENDPOINT;
+    authService(process.env.ENDPOINT, process.env.EMAIL, process.env.PASSWORD).then((data: any) => {
         if (data === null) {
             process.exit(1);
             return;
@@ -76,6 +94,59 @@ function authenticate(): void {
         logger.debug('Successfully retrieved userId and token for this instance\'s user.');
     });
 }
+
+app.get('/configuration', function(req: Request, res: Response) {
+    if (!process.env.EMAIL || !process.env.PASSWORD || !process.env.ENDPOINT) {
+        res.sendFile(path.join( __dirname, 'html', 'config/config.html' ));
+    } else {
+        res.sendFile(path.join( __dirname, 'html', 'errors/config-done/config-done.html' ));
+    }
+});
+
+app.get('/setup', function(req: Request, res: Response) {
+    if (!process.env.EMAIL || !process.env.PASSWORD || !process.env.ENDPOINT) {
+        res.sendFile(path.join( __dirname, 'html', 'setup/errors/config-missing/config-missing.html'));
+    } else {
+        res.sendFile(path.join( __dirname, 'html', 'setup/setup.html' ));
+    }
+});
+
+/**
+ * @typedef Connection
+ * @property {string} endpoint.required - Endpoint of the Tiko API.
+ * @property {string} email.required - Email of the Tiko account.
+ * @property {string} password.required - Password of the Tiko account.
+ */
+
+/**
+ * Returns a boolean defining whether the provided connection data is usable or not.
+ * @route POST /test-connection
+ * @group HMI - UI endpoints for easy setup
+ * @param {Connection.model} point.body.required - Connection data for Tiko API
+ * @returns {object} 200 - Connection was checked
+ * @returns {Error}  default - Unexpected error
+ */
+app.post('/api/v1/test-connection', function (req: Request, res: Response) {
+    authService(req.body.endpoint, req.body.email, req.body.password).then((data: any) => {
+        res.send({ valid: data != null });
+    });
+});
+
+/**
+ * Saves the provided connection parameters in a .env file in order to re-use them in the server.
+ * @route POST /save-connection
+ * @group HMI - UI endpoints for easy setup
+ * @param {Connection.model} point.body.required - Connection data for Tiko API
+ * @returns {object} 200 - Connection was saved
+ * @returns {Error}  default - Unexpected error
+ */
+app.post('/api/v1/save-connection', function (req: Request, res: Response) {
+    const proxyHost = req.headers["x-forwarded-host"];
+    const host = proxyHost ? proxyHost as string : req.headers.host as string;
+    envService(req.body.endpoint, req.body.email, req.body.password, host.split(':')[0], host.split(':')[1], req.secure);
+    authenticate();
+    res.sendStatus(200);
+});
 
 /**
  * Returns the consumption statistics for the user this instance is configured for.

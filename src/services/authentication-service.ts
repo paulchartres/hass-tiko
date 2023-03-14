@@ -1,6 +1,6 @@
 import {gql, request} from "graphql-request";
 
-module.exports = function(serverUrl: string): Promise<any> {
+module.exports = function(serverUrl: string, email: string, password: string): Promise<any> {
     return new Promise(async resolve => {
         const query = gql`
           mutation LogIn(
@@ -62,8 +62,8 @@ module.exports = function(serverUrl: string): Promise<any> {
         }
         `;
         const variables = {
-            "email": process.env.EMAIL,
-            "password": process.env.PASSWORD,
+            "email": email,
+            "password": password,
             "langCode": "fr",
             "retainSession": true
         }

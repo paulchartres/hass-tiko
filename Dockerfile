@@ -10,9 +10,9 @@ RUN npm install
 # Bundle app source
 COPY . .
 RUN npm run build
+COPY src/html dist/html
+RUN mkdir -p dist/config
 
-ENV SERVICE_URL=localhost
-ENV SERVICE_PORT=3001
 ENV PROD=true
 
 EXPOSE 3001
