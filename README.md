@@ -1,3 +1,4 @@
+![Swagger render](static/header.png)
 # Tiko integration for Home Assistant
 > This project is heavily based on [noiwid's tiko_heating_api](https://github.com/noiwid/tiko_heating_api), he did an amazing job with it and I merely expanded on what he created. Go give him a star, he deserves it!  
   
