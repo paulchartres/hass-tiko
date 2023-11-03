@@ -163,7 +163,7 @@ module.exports = function(data: any): string {
                             entity_id: 'climate.' + roomName
                         },
                         data: {
-                            temperature: `{{ states('sensor.${roomName}_temperature_target') }}`
+                            temperature: `{{ states('sensor.${roomName}_temperature_target')|float (0) }}`
                         }
                     }
                 ],
