@@ -33,6 +33,7 @@ module.exports = function(data: any): string {
                 sensors: {
                     [roomName + '_temperature']: {
                         friendly_name: room.name + ' temperature',
+                        unique_id: roomName + '_temperature',
                         value_template: `{{ state_attr('sensor.tiko_settings', '${roomName}_cur')}}`,
                         unit_of_measurement: '°C',
                         device_class: 'temperature'
@@ -44,6 +45,7 @@ module.exports = function(data: any): string {
                 sensors: {
                     [roomName + '_temperature_target']: {
                         friendly_name: room.name + ' temperature target',
+                        unique_id: roomName + '_temperature_target',
                         value_template: `{{ state_attr('sensor.tiko_settings', '${roomName}_tar')}}`,
                         unit_of_measurement: '°C',
                         device_class: 'temperature'
@@ -55,6 +57,7 @@ module.exports = function(data: any): string {
                 sensors: {
                     [roomName + '_humidity']: {
                         friendly_name: room.name + ' humidity',
+                        unique_id: roomName + '_humidity',
                         value_template: `{{ state_attr('sensor.tiko_settings', '${roomName}_dry')}}`,
                         unit_of_measurement: '%',
                         device_class: 'humidity'
@@ -68,6 +71,7 @@ module.exports = function(data: any): string {
                 sensors: {
                     [roomName + '_heating']: {
                         friendly_name: room.name + ' heating',
+                        unique_id: roomName + '_heating',
                         value_template: `{{ is_state_attr('sensor.tiko_settings','${roomName}_on', true)}}`,
                         device_class: 'heat'
                     }
